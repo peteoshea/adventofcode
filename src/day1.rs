@@ -1,5 +1,9 @@
+use super::common;
+
 pub fn run() {
-    println!("Okay lets do this thing...")
+    let lines = common::file_to_vec("./data/day1/input.txt").unwrap();
+    let depths: Vec<u16> = lines.into_iter().map(|line| line.parse().unwrap()).collect();
+    println!("Day1: {}", increase_count(depths));
 }
 
 fn depth_increase(depth1: u16, depth2: u16) -> bool {
@@ -7,12 +11,12 @@ fn depth_increase(depth1: u16, depth2: u16) -> bool {
 }
 
 #[allow(dead_code)]
-fn increase_count(depths: &[u16]) -> u16 {
+fn increase_count(depths: Vec<u16>) -> u16 {
     let mut count = 0;
     // Don't initialise first depth as will be written to on first loop
     let mut depth1: u16;
     // Write first element to second depth so it gets pushed to depth1 on first pass
-    let mut depth2 = depths[0];
+    let mut depth2: u16 = depths[0];
     for depth in depths.iter().skip(1) {
         depth1 = depth2;
         depth2 = *depth;
@@ -44,13 +48,13 @@ mod tests {
 
     #[test]
     fn test_increase_count_with_no_increases_returns_zero() {
-        let depths: [u16; 3] = [199, 198, 197];
-        assert_eq!(increase_count(&depths), 0);
+        let depths: Vec<u16> = vec![199, 198, 197];
+        assert_eq!(increase_count(depths), 0);
     }
 
     #[test]
     fn test_increase_count_with_example_returns_seven() {
-        let depths: [u16; 10] = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263];
-        assert_eq!(increase_count(&depths), 7);
+        let depths: Vec<u16> = vec![199, 200, 208, 210, 200, 207, 240, 269, 260, 263];
+        assert_eq!(increase_count(depths), 7);
     }
 }
