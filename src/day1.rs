@@ -2,9 +2,25 @@ pub fn run() {
     println!("Okay lets do this thing...")
 }
 
-#[allow(dead_code)]
-fn depth_increase(depth1: u32, depth2: u32) -> bool {
+fn depth_increase(depth1: u16, depth2: u16) -> bool {
     depth2 > depth1
+}
+
+#[allow(dead_code)]
+fn increase_count(depths: &[u16]) -> u16 {
+    let mut count = 0;
+    // Don't initialise first depth as will be written to on first loop
+    let mut depth1: u16;
+    // Write first element to second depth so it gets pushed to depth1 on first pass
+    let mut depth2 = depths[0];
+    for index in 1..depths.len() {
+        depth1 = depth2;
+        depth2 = depths[index];
+        if depth_increase(depth1, depth2) {
+            count += 1;
+        }
+    }
+    count
 }
 
 #[cfg(test)]
@@ -24,5 +40,17 @@ mod tests {
     #[test]
     fn test_depth_increase_with_increasing_depth_returns_true() {
         assert!(depth_increase(190, 200));
+    }
+
+    #[test]
+    fn test_increase_count_with_no_increases_returns_zero() {
+        let depths: [u16; 3] = [199, 198, 197];
+        assert_eq!(increase_count(&depths), 0);
+    }
+
+    #[test]
+    fn test_increase_count_with_example_returns_seven() {
+        let depths: [u16; 10] = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263];
+        assert_eq!(increase_count(&depths), 7);
     }
 }
