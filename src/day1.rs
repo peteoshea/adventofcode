@@ -13,9 +13,9 @@ fn increase_count(depths: &[u16]) -> u16 {
     let mut depth1: u16;
     // Write first element to second depth so it gets pushed to depth1 on first pass
     let mut depth2 = depths[0];
-    for index in 1..depths.len() {
+    for depth in depths.iter().skip(1) {
         depth1 = depth2;
-        depth2 = depths[index];
+        depth2 = *depth;
         if depth_increase(depth1, depth2) {
             count += 1;
         }
