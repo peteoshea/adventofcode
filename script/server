@@ -19,4 +19,5 @@ script/update
 # Start the server
 echo
 echo "==> Start the server…"
-echo "** Add commands to setup and then start your project here **"
+
+cargo run
