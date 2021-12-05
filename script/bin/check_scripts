@@ -9,9 +9,7 @@ function check_script {
   issues=$((issues + $?))
 }
 
-# Check if arguments are passed allowing call to specific test(s).
-# As an example this calls a simple script to check these shell scripts are valid.
-echo
+# Check if arguments are passed in requesting analysis of specific file(s).
 if [[ -n $1 ]]
 then
   echo "===> Analysing specific scripts…"

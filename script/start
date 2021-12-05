@@ -1,13 +1,10 @@
 #!/bin/bash
 
-# server: Launch the application and any extra required processes locally.
+# start: Launch the application and any extra required processes locally.
 #
 
 # Drop out if one of the commands fails
 set -e
-
-echo
-echo "==> Launch the application…"
 
 # Ensure we are working from the top of the project
 cd "$(dirname "$0")/.."
@@ -16,8 +13,8 @@ echo "Change directory to: $(pwd)"
 # Run update script to ensure everything is up to date
 script/update
 
-# Start the server
+# Start the application
+echo "==> Start the application…"
 echo
-echo "==> Start the server…"
 
 cargo run
